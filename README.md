@@ -347,3 +347,6 @@ HotwireではなくInertia.jsを選択しました
 
 ## 画面遷移図
 Figma：<https://www.figma.com/design/JTlEFklKjwGc27GCPWwhqM/Tower-Timer?node-id=0-1&p=f&t=G3qoR8sWVFSf2qQz-0>
+
+## ER図
+Drawio : https://drive.google.com/file/d/1gqTnENqOn_717_r8OQlL-gl9LsXnb6d7/view?usp=sharing
