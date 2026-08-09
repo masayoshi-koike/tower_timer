@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :pomodoro_sets, dependent: :destroy
+  has_many :pomodoro_sessions, through: :pomodoro_sets
+
   attribute :status, :integer, default: 0
   enum status: { general: 0, guest: 1 }
 
