@@ -1,5 +1,6 @@
 import { FixedImages } from "@/links/animation";
 import CarAnimation from "@/pages/animation/crane-animation";
+import SmokeChimney from "@/pages/animation/smoke-chimney-animation";
 
 interface Props {
   elapsedTime: number;
@@ -28,6 +29,11 @@ export default function IllustrationArea({
         elapsedTime={elapsedTime}
         status={status}
         stage={stage}
+        isPlaying={isPlaying}
+      />
+      <SmokeChimney
+        elapsedTime={elapsedTime}
+        status={status}
         isPlaying={isPlaying}
       />
     </>
