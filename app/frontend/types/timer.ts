@@ -11,10 +11,12 @@ export interface PomodoroSet {
 
 export interface TimerShowProps {
   activeSet: PomodoroSet | null;
+  serverTime?: number;
 }
 
 export interface UsePomodoroTimerProps {
   activeSet: PomodoroSet | null;
+  timeOffset: number;
   onComplete: () => void;
   onReset: () => void;
 };

@@ -5,6 +5,7 @@ class TimersController < ApplicationController
   def show
     render inertia: 'layout/home/timer/show', props: {
       activeSet: serialized_active_timer,
+      serverTime: (Time.current.to_f * 1000).to_i
     }
   end
 
@@ -38,7 +39,10 @@ class TimersController < ApplicationController
     if @active_timer
       @active_timer.update!(status: :canceled)
     end
-    render json: { activeSet: nil }
+    render json: { 
+      activeSet: nil,
+      serverTime: (Time.current.to_f * 1000).to_i
+   }
   end
 
   def complete
@@ -74,6 +78,9 @@ class TimersController < ApplicationController
   end
 
   def render_active_timer
-    render json: { activeSet: serialized_active_timer }
+    render json: { 
+      activeSet: serialized_active_timer,
+      serverTime: (Time.current.to_f * 1000).to_i
+     }
   end
 end
