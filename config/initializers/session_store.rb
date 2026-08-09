@@ -1,0 +1,1 @@
+Rails.application.config.session_store :cookie_store, key: 'tower_timer_app_session', expire_after: 1.month
