@@ -1,10 +1,11 @@
 import { usePage } from "@inertiajs/react";
 import { PageProps } from "@/types/auth";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { LucideCircleUserRound } from "lucide-react";
 import SignupContainer from "../../auth/_components/signup/signup-container";
 import LoginContainer from "../../auth/_components/login/login-container";
-import { Button } from "@/components/ui/button";
+import UserMenuModal from "../../auth/_components/userMenu/userMenuModal";
 
 export default function LoginPage() {
   const { auth } = usePage<PageProps>().props;
@@ -37,7 +38,10 @@ export default function LoginPage() {
         </span>
       </Button>
       {isUserMenuOpen && (
-        <></>
+        <UserMenuModal
+          isOpen={isUserMenuOpen}
+          onOpenChange={() => setisUserMenuOpen(false)}
+        />
       )}
       {isSignUpOpen && (
         <SignupContainer

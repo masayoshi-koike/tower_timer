@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :users, only: [:create]
+  resources :user_sessions, only: %i[create destroy]
 
 
 
