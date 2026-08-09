@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import React from 'react'
+import LoginPage from '../login';
 
 type Props = {
   name: string;
@@ -10,7 +10,7 @@ export default function Index({ name }: Props) {
     <div>
       <h1>Hello, {name}!</h1>
       <p>Inertia.js + React + Railsの連携に成功しました。</p>
-      <Button />
+      <LoginPage/>
     </div>
   )
 }
