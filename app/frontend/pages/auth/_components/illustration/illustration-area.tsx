@@ -1,3 +1,5 @@
+import { FixedImages } from "@/links/animation";
+
 interface Props {
   elapsedTime: number;
   status: string;
@@ -16,6 +18,11 @@ export default function IllustrationArea({
 
   return (
     <>
+      <img
+        src={FixedImages.background}
+        className="absolute w-full h-full object-contain"
+        alt="background_img"
+      />
     </>
   );
 }
