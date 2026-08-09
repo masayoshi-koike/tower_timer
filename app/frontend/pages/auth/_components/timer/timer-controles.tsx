@@ -1,7 +1,18 @@
 import { Button } from "@/components/ui/button";
 
-export default function TimerControls() {
+interface Props {
+  status: string;
+  onStart: () => void;
+  onStop: () => void;
+  onReset: () => void;
+}
 
+export default function TimerControls({
+  status,
+  onStart,
+  onStop,
+  onReset,
+}: Props) {
   return (
     <div className="flex gap-4">
       <Button

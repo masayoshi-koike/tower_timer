@@ -1,5 +1,12 @@
+interface Props {
+  timeInSeconds: number;
+  isBreak: boolean;
+}
 
-export default function TimerDisplay() {
+export default function TimerDisplay({
+  timeInSeconds,
+  isBreak,
+}: Props) {
 
   return (
     <div className="text-center mb-8 pb-8">
