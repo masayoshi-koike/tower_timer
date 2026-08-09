@@ -1,0 +1,19 @@
+FROM ruby:3.4.1-slim
+ENV LANG C.UTF-8
+ENV TZ Asia/Tokyo
+WORKDIR /tower_timer_app
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    curl \
+    git \
+    libpq-dev \
+    pkg-config \
+    tzdata
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install --no-install-recommends -y nodejs && \
+    npm install -g yarn
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+COPY package.json yarn.lock ./
+RUN yarn install
