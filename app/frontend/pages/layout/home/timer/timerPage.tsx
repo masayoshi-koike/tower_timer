@@ -1,14 +1,23 @@
 import { TimerShowProps } from "@/types/timer";
 import usePomodoroTimer from "@/pages/hooks/usePomodoroTimer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TimerControls from "@/pages/auth/_components/timer/timer-controles";
 import TimerDisplay from "@/pages/auth/_components/timer/timer-display";
 import IllustrationArea from "@/pages/auth/_components/illustration/illustration-area";
 
 export default function TimerPage({
   activeSet: initialActiveSet,
+  serverTime: initialServerTime,
 }: TimerShowProps) {
   const [activeSet, setActiveSet] = useState(initialActiveSet);
+  const [timeOffset, setTimeOffset] = useState(0);
+
+  useEffect(() => {
+    if (initialServerTime) {
+      const clientTime = new Date().getTime();
+      setTimeOffset(initialServerTime - clientTime);
+    }
+  }, [initialServerTime]);
 
   const updateTimerState = async (url: string) => {
     const csrfToken = document
@@ -27,6 +36,10 @@ export default function TimerPage({
       if (response.ok) {
         const data = await response.json();
         setActiveSet(data.activeSet);
+        if (data.serverTime) {
+          const clientTime = new Date().getTime();
+          setTimeOffset(data.serverTime - clientTime);
+        }
       }
     } catch (error) {
       console.error("Timer action failed:", error);
@@ -48,6 +61,7 @@ export default function TimerPage({
     status,
   } = usePomodoroTimer({
     activeSet,
+    timeOffset,
     onComplete: () => updateTimerState("/timer/complete"),
     onReset: () => updateTimerState("/timer/reset"),
   });
