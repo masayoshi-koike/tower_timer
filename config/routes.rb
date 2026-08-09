@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  root "home#index"
-
+  root "timers#show"
+  
   resources :users, only: [:create]
   resources :user_sessions, only: %i[create destroy]
 
-
-
+  resource :timer, only: [] do
+    match :start, :stop, :reset, :complete, via: :post
+  end
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
