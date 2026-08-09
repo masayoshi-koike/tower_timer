@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_08_09_090840) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_09_112953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pomodoro_sessions", force: :cascade do |t|
+    t.bigint "pomodoro_set_id", null: false
+    t.integer "duration_minutes", default: 25, null: false
+    t.datetime "completed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pomodoro_set_id"], name: "index_pomodoro_sessions_on_pomodoro_set_id"
+  end
+
+  create_table "pomodoro_sets", force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.integer "target_sessions", default: 1, null: false
+    t.integer "status", default: 0, null: false
+    t.integer "elapsed_time", default: 0, null: false
+    t.datetime "resumed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pomodoro_sets_on_user_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "uuidv7()" }, force: :cascade do |t|
     t.string "name", null: false
@@ -23,4 +43,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_09_090840) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-end
+
+  add_foreign_key "pomodoro_sessions", "pomodoro_sets"
+  add_foreign_key "pomodoro_sets", "users"
+end 
