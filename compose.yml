@@ -35,7 +35,7 @@ services:
       dockerfile: Dockerfile.dev
     command: bundle exec vite dev
     volumes:
-      - .:/app
+      - .:/tower_timer_app
     ports:
       - "3036:3036"
     environment:
