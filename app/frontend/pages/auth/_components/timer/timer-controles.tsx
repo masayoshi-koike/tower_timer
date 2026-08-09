@@ -13,10 +13,14 @@ export default function TimerControls({
   onStop,
   onReset,
 }: Props) {
+  const isRunning = status === "in_progress" || status === "break_time";
+
   return (
     <div className="flex gap-4">
       <Button
         type="button"
+        onClick={onStop}
+        disabled={!isRunning}
         variant="outline"
         className="rounded-full px-[30px] py-[17px] border-2 border-gray-900 font-custom uppercase tracking-wider bg-[#ebebe2]"
       >
@@ -24,6 +28,8 @@ export default function TimerControls({
       </Button>
       <Button
         type="button"
+        onClick={onStart}
+        disabled={isRunning}
         variant="outline"
         className="rounded-full px-[24px] py-[17px] border-2 border-gray-900 font-custom uppercase tracking-wider bg-[#ebebe2]"
       >
@@ -31,6 +37,7 @@ export default function TimerControls({
       </Button>
       <Button
         type="button"
+        onClick={onReset}
         variant="outline"
         className="rounded-full px-[24px] py-[17px] border-2 border-gray-900 font-custom uppercase tracking-wider bg-[#ebebe2]"
       >
