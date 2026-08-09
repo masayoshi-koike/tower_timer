@@ -1,11 +1,11 @@
 import { usePage } from "@inertiajs/react";
 import { PageProps } from "@/types/auth";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { LucideCircleUserRound } from "lucide-react";
+import UserMenuModal from "../../auth/_components/userMenu/userMenuModal";
 import SignupContainer from "../../auth/_components/signup/signup-container";
 import LoginContainer from "../../auth/_components/login/login-container";
-import UserMenuModal from "../../auth/_components/userMenu/userMenuModal";
 
 export default function LoginPage() {
   const { auth } = usePage<PageProps>().props;
@@ -28,15 +28,16 @@ export default function LoginPage() {
 
   return (
     <>
-      <Button
+      <SidebarMenuButton
         className="h-12 [&>svg]:size-8 w-full group-data-[collapsible=icon]:!w-13 group-data-[collapsible=icon]:!h-13"
         onClick={handleButtonClick}
+        tooltip={auth.loggedIn ? "ユーザー" : "ログイン"}
       >
         <LucideCircleUserRound />
         <span className="truncate group-data-[collapsible=icon]:hidden">
           {auth.loggedIn ? "ユーザー" : "ログイン"}
         </span>
-      </Button>
+      </SidebarMenuButton>
       {isUserMenuOpen && (
         <UserMenuModal
           isOpen={isUserMenuOpen}
