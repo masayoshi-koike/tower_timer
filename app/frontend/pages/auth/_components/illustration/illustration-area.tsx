@@ -1,4 +1,5 @@
 import { FixedImages } from "@/links/animation";
+import CarAnimation from "@/pages/animation/crane-animation";
 
 interface Props {
   elapsedTime: number;
@@ -22,6 +23,12 @@ export default function IllustrationArea({
         src={FixedImages.background}
         className="absolute w-full h-full object-contain"
         alt="background_img"
+      />
+      <CarAnimation
+        elapsedTime={elapsedTime}
+        status={status}
+        stage={stage}
+        isPlaying={isPlaying}
       />
     </>
   );

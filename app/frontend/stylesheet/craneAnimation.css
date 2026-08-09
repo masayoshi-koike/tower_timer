@@ -1,0 +1,39 @@
+@keyframes moveIn {
+  0% { left: -40%; transform: translate(0, -50%); }
+  100% { left: 50%; transform: translate(-50%, -50%); }
+}
+
+.car-initial {
+  left: -40%;
+  transform: translate(0, -50%);
+}
+
+.car-entering {
+  animation: moveIn var(--move-duration) linear forwards;
+}
+
+.car-arrived {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes crane-sprite-x {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(-100%) translateY(0); }
+}
+
+@keyframes crane-sprite-y {
+  0%, 24.99% { transform: translateX(0) translateY(0); }
+  25%, 49.99% { transform: translateX(0) translateY(calc(-100% / 3)); }
+  50%, 74.99% { transform: translateX(0) translateY(calc(-200% / 3)); }
+  75%, 99.99% { transform: translateX(0) translateY(calc(-100% / 3)); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+.crane-animate-sprite-x {
+  animation: crane-sprite-x var(--anim-duration-x) steps(var(--sprite-cols), end) infinite;
+}
+
+.crane-animate-sprite-y {
+  animation: crane-sprite-y var(--anim-duration-y) infinite;
+}
