@@ -23,8 +23,10 @@ export default function SidberContainer({ children }: AppLayoutProps) {
       defaultOpen={false}
     >
       <SidebarMenus />
-      <SidebarTrigger />
-      <SidebarInset  className="bg-[#ebebe2]">
+      <SidebarInset className="relative bg-[#ebebe2] w-full overflow-x-hidden">
+        <div className="absolute top-4 left-4 z-50">
+          <SidebarTrigger />
+        </div>
         <main className="flex-1 flex flex-col">{children}</main>
       </SidebarInset>
     </SidebarProvider>
