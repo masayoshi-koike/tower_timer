@@ -23,11 +23,11 @@
 }
 
 @keyframes crane-sprite-y {
-  0%, 24.99% { transform: translateX(0) translateY(0); }
-  25%, 49.99% { transform: translateX(0) translateY(calc(-100% / 3)); }
-  50%, 74.99% { transform: translateX(0) translateY(calc(-200% / 3)); }
-  75%, 99.99% { transform: translateX(0) translateY(calc(-100% / 3)); }
-  100% { transform: translateX(0) translateY(0); }
+  0% { transform: translateY(0); }
+  25% { transform: translateY(calc(-100% / 3)); }
+  50% { transform: translateY(calc(-200% / 3)); }
+  75% { transform: translateY(calc(-100% / 3)); }
+  100% { transform: translateY(0); }
 }
 
 .crane-animate-sprite-x {
@@ -35,5 +35,5 @@
 }
 
 .crane-animate-sprite-y {
-  animation: crane-sprite-y var(--anim-duration-y) infinite;
+  animation: crane-sprite-y var(--anim-duration-y) step-end infinite;
 }
