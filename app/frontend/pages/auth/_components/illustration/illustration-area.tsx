@@ -3,6 +3,8 @@ import CarAnimation from "@/pages/animation/crane-animation";
 import SmokeChimney from "@/pages/animation/smoke-chimney-animation";
 import "../../../../stylesheet/animation.css"
 import ConstructionHuman from "@/pages/animation/construction-human-animation";
+import SmokePeaple from "@/pages/animation/smoke-people-animation";
+import Cat from "@/pages/animation/cat-animation";
 
 interface Props {
   elapsedTime: number;
@@ -87,11 +89,25 @@ export default function IllustrationArea({
         alt="floor_img_3"
       />
       )}
+      {(stage >= 3 || isFinished) && (
+        <Cat
+        elapsedTime={elapsedTime}
+        status={status}
+        isPlaying={isPlaying}
+        />
+      )}
       {(stage >= 2 || isFinished) && (
         <img
         src={FixedImages.secondFloor}
         className="absolute w-full h-full object-contain"
         alt="floor_img_2"
+        />
+      )}
+      {(stage >= 2 || isFinished) && (
+        <SmokePeaple
+        elapsedTime={elapsedTime}
+        status={status}
+        isPlaying={isPlaying}
         />
       )}
       {(stage >= 4 || isFinished) && (
