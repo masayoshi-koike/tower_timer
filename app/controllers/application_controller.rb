@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
       auth: {
         user: current_user,
         loggedIn: logged_in?,
+        total_minutes: current_user&.total_study_minutes || 0
       }
     }
   end
