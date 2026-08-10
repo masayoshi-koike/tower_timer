@@ -7,8 +7,12 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: 'ユーザー登録が完了しました'
     else
+      formatted_errors = @user.errors.attribute_names.index_with do |attribute|
+        @user.errors.full_messages_for(attribute).first
+      end
+
       redirect_back fallback_location: root_path, 
-                    inertia: { errors: @user.errors.messages }
+                    inertia: { errors: formatted_errors }
     end
   end
 
