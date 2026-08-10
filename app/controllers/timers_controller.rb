@@ -74,6 +74,8 @@ class TimersController < ApplicationController
     return nil unless @active_timer
     @active_timer&.as_json(
       only: [:id, :status, :elapsed_time, :resumed_at, :target_sessions]
+    ).merge(
+      'is_completed' => @active_timer.pomodoro_sessions.exists?
     )
   end
 
