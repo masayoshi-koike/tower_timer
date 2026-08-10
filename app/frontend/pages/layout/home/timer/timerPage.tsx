@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TimerControls from "@/pages/auth/_components/timer/timer-controles";
 import TimerDisplay from "@/pages/auth/_components/timer/timer-display";
 import IllustrationArea from "@/pages/auth/_components/illustration/illustration-area";
+import BreakTimeArea from "@/pages/auth/_components/illustration/breakTime-area";
 
 export default function TimerPage({
   activeSet: initialActiveSet,
@@ -81,13 +82,22 @@ export default function TimerPage({
 
         <div className="min-[1025px]:col-span-7 flex items-center justify-center w-full p-4">
           <div className="relative max-w-full w-[400px] min-[1025px]:w-[1000px] aspect-square border-2 border-gray-900 overflow-hidden bg-[#ebebe2]">
-            <IllustrationArea
-              elapsedTime={elapsedTime}
-              status={status}
-              stage={animationStage}
-              isPlaying={isPlaying}
-              isFinished={isFinished}
-            />
+            {showBreakMode ? (
+              <BreakTimeArea
+                elapsedTime={elapsedTime}
+                status={status}
+                isPlaying={isPlaying}
+                isBreak={isBreak}
+              />
+            ) : (
+              <IllustrationArea
+                elapsedTime={elapsedTime}
+                status={status}
+                stage={animationStage}
+                isPlaying={isPlaying}
+                isFinished={isFinished}
+              />
+            )}
           </div>
         </div>
       </div>
