@@ -2,6 +2,7 @@ import { FixedImages } from "@/links/animation";
 import CarAnimation from "@/pages/animation/crane-animation";
 import SmokeChimney from "@/pages/animation/smoke-chimney-animation";
 import "../../../../stylesheet/animation.css"
+import ConstructionHuman from "@/pages/animation/construction-human-animation";
 
 interface Props {
   elapsedTime: number;
@@ -10,6 +11,13 @@ interface Props {
   isPlaying: boolean;
   isFinished: boolean;
 }
+
+const CONSTRUCTION_HUMAN_CONFIGS = [
+  { targetStage: 1, yClass: "translate-y-[420%]" },
+  { targetStage: 2, yClass: "translate-y-[315%]" },
+  { targetStage: 3, yClass: "translate-y-[220%]" },
+  { targetStage: 4, yClass: "translate-y-[135%]" },
+];
 
 const CONSTRUCTION_CONFIGS = [
   { stage: 1, targetStage: 1, yClass: "translate-y-[23.5%]" },
@@ -53,6 +61,17 @@ export default function IllustrationArea({
             alt="construction"
           />
         )
+      ))}
+      {CONSTRUCTION_HUMAN_CONFIGS.map((config) => (
+        <ConstructionHuman
+          elapsedTime={elapsedTime}
+          key={config.targetStage}
+          currentStage={stage}
+          targetStage={config.targetStage}
+          status={status}
+          isPlaying={isPlaying}
+          yClass={config.yClass}
+        />
       ))}
       {(stage >= 1 || isFinished) && (
         <img
