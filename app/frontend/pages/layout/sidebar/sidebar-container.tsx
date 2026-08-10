@@ -18,6 +18,7 @@ export default function SidberContainer({ children }: AppLayoutProps) {
         {
           "--sidebar-width": "10rem",
           "--sidebar-width-icon": "4rem",
+          "--sidebar-width-mobile": "10rem",
         } as React.CSSProperties
       }
       defaultOpen={false}
