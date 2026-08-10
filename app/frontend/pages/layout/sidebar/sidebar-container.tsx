@@ -18,13 +18,16 @@ export default function SidberContainer({ children }: AppLayoutProps) {
         {
           "--sidebar-width": "10rem",
           "--sidebar-width-icon": "4rem",
+          "--sidebar-width-mobile": "10rem",
         } as React.CSSProperties
       }
       defaultOpen={false}
     >
       <SidebarMenus />
-      <SidebarTrigger />
-      <SidebarInset  className="bg-[#ebebe2]">
+      <SidebarInset className="relative bg-[#ebebe2] w-full overflow-x-hidden">
+        <div className="absolute top-4 left-4 z-50">
+          <SidebarTrigger />
+        </div>
         <main className="flex-1 flex flex-col">{children}</main>
       </SidebarInset>
     </SidebarProvider>
