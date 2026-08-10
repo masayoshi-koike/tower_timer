@@ -5,6 +5,7 @@ import TimerControls from "@/pages/auth/_components/timer/timer-controles";
 import TimerDisplay from "@/pages/auth/_components/timer/timer-display";
 import IllustrationArea from "@/pages/auth/_components/illustration/illustration-area";
 import BreakTimeArea from "@/pages/auth/_components/illustration/breakTime-area";
+import { router } from "@inertiajs/core";
 
 export default function TimerPage({
   activeSet: initialActiveSet,
@@ -40,6 +41,9 @@ export default function TimerPage({
         if (data.serverTime) {
           const clientTime = new Date().getTime();
           setTimeOffset(data.serverTime - clientTime);
+        }
+        if (url === "/timer/complete") {
+          router.reload({ only: ['auth'] });
         }
       }
     } catch (error) {

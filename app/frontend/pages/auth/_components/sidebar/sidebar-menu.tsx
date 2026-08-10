@@ -10,6 +10,7 @@ import {
 import { ChartPie } from "lucide-react";
 import LoginPage from "../../../layout/login";
 import { useState } from "react";
+import TotalTimeModal from "../timer/totalTime-modal";
 
 export default function SidebarMenus() {
   const [isTotalTimeOpen, setIsTotalTimeOpen] = useState(false);
@@ -37,7 +38,10 @@ export default function SidebarMenus() {
                     パラメーター
                   </span>
                 </SidebarMenuButton>
-                <></>
+                <TotalTimeModal
+                  isOpen={isTotalTimeOpen}
+                  onOpenChange={() => setIsTotalTimeOpen(false)}
+                />
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>

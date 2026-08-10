@@ -19,4 +19,9 @@ class User < ApplicationRecord
       password: SecureRandom.urlsafe_base64 
     )
   end
+  
+  def total_study_minutes
+    pomodoro_sessions.sum(:duration_minutes)
+  end
+
 end
