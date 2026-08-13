@@ -21,14 +21,14 @@ export default function UserMenuModal({isOpen, onOpenChange}: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent showCloseButton={false} className="p-0 gap-0 sm:max-w-[320px] bg-[#EFECE5] border-gray-300 overflow-hidden">
-        <div className="flex flex-col text-center text-gray-800 text-sm font-medium">
-          <div className="py-5 border-b border-gray-400/50">{auth.user?.name}</div>
-          <div className="py-5 border-b border-gray-400/50">{auth.user?.email}</div>
+      <DialogContent showCloseButton={false} className="gap-0 overflow-hidden border-gray-300 bg-[#EFECE5] p-0 sm:max-w-80">
+        <div className="flex flex-col text-center text-sm font-medium text-gray-800">
+          <div className="border-b border-gray-400/50 py-5">{auth.user?.name}</div>
+          <div className="border-b border-gray-400/50 py-5">{auth.user?.email}</div>
 
           <div
             onClick={handleDelete}
-            className="py-5 cursor-pointer hover:bg-black/5 active:bg-black/10 transition-colors"
+            className="cursor-pointer py-5 transition-colors hover:bg-black/5 active:bg-black/10"
           >
             ログアウト
           </div>

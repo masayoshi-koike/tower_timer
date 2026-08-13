@@ -31,19 +31,19 @@ export default function TotalTimeModal({ isOpen, onOpenChange }: Props) {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="p-8 w-fit max-w-[95vw] sm:max-w-max min-w-[320px] bg-[#EFECE5] border-none rounded-2xl flex flex-col items-center justify-center min-h-[360px] shadow-xl"
+        className="flex min-h-90 w-fit max-w-[95vw] min-w-80 flex-col items-center justify-center rounded-2xl border-none bg-[#EFECE5] p-8 shadow-xl sm:max-w-max"
       >
-        <div className="flex flex-col items-center justify-center w-full mt-4">
-          <h2 className="text-lg sm:text-xl font-custom font-black tracking-widest text-gray-900 mb-2 uppercase">
+        <div className="mt-4 flex w-full flex-col items-center justify-center">
+          <h2 className="mb-2 font-custom text-lg font-black tracking-widest text-gray-900 uppercase sm:text-xl">
             Total Time
           </h2>
 
-          <div className="w-[75%] h-[1.5px] bg-gray-800 mb-12"></div>
+          <div className="mb-12 h-[1.5px] w-[75%] bg-gray-800"></div>
           <div className="flex items-baseline justify-center text-gray-900">
-            <span className="text-5xl font-custom font-bold tracking-widest">
+            <span className="font-custom text-5xl font-bold tracking-widest">
               {formattedTime}
             </span>
-            <span className="text-xl font-custom font-boldml-2 pl-3">hrs</span>
+            <span className="font-boldml-2 pl-3 font-custom text-xl">hrs</span>
           </div>
         </div>
       </DialogContent>

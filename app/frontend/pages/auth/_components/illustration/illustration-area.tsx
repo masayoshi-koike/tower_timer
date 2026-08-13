@@ -49,7 +49,7 @@ export default function IllustrationArea({
     <>
       <img
         src={FixedImages.background}
-        className="absolute w-full h-full object-contain"
+        className="absolute size-full object-contain"
         alt="background_img"
       />
       <CarAnimation
@@ -68,7 +68,7 @@ export default function IllustrationArea({
           <img
             key={`construction-${config.stage}`}
             src={FixedImages.construction}
-            className={`animate-fade-in absolute w-full h-full ${config.yClass} scale-[30%] object-contain`}
+            className={`animate-fade-in absolute size-full ${config.yClass} scale-[30%] object-contain`}
             alt="construction"
           />
         )
@@ -98,14 +98,14 @@ export default function IllustrationArea({
       {(stage >= 1 || isFinished) && (
         <img
         src={FixedImages.firstFloor}
-        className="absolute w-full h-full object-contain"
+        className="absolute size-full object-contain"
         alt="floor_img_1"
       />
       )}
       {(stage >= 3 || isFinished) && (
         <img
         src={FixedImages.thirdFloor}
-        className="absolute w-full h-full object-contain"
+        className="absolute size-full object-contain"
         alt="floor_img_3"
       />
       )}
@@ -119,7 +119,7 @@ export default function IllustrationArea({
       {(stage >= 2 || isFinished) && (
         <img
         src={FixedImages.secondFloor}
-        className="absolute w-full h-full object-contain"
+        className="absolute size-full object-contain"
         alt="floor_img_2"
         />
       )}
@@ -133,14 +133,14 @@ export default function IllustrationArea({
       {(stage >= 4 || isFinished) && (
       <img
         src={FixedImages.fourthFloor}
-        className="absolute w-full h-full object-contain"
+        className="absolute size-full object-contain"
         alt="floor_img_4"
         />
       )}
       { isFinished && (
         <img
           src={FixedImages.fifthFloor}
-          className="absolute w-full h-full object-contain"
+          className="absolute size-full object-contain"
           alt="floor_img_5" 
         />
       )}

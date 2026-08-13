@@ -36,8 +36,8 @@ export default function SmokePeaple({
   const hasAnimation = status === "in_progress" || status === "paused";
 
   return (
-    <div className={`absolute translate-y-[490%] translate-x-[685%] w-[6.5%]  aspect-[100/200]`}>
-      <div className="relative overflow-hidden w-full h-full">
+    <div className={`absolute aspect-[100/200] w-[6.5%] translate-x-[685%]  translate-y-[490%]`}>
+      <div className="relative size-full overflow-hidden">
         <img
           src={MovedImages.smoke_people}
           alt="Sprite Animation"

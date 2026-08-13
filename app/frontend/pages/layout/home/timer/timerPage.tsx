@@ -72,10 +72,10 @@ export default function TimerPage({
   });
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center w-full pt-16 sm:pt-4 px-2 sm:px-5 overflow-x-hidden landscape:max-[1024px]:pt-1">
-      <div className="w-full max-w-7xl grid grid-cols-1 min-[1025px]:grid-cols-12 landscape:max-[1024px]:grid-cols-12 gap-6 min-[1025px]:gap-1 landscape:max-[1024px]:gap-1 items-center">
+    <div className="flex w-full flex-1 flex-col items-center justify-center overflow-x-hidden px-2 pt-16 sm:px-5 sm:pt-4 landscape:max-[1024px]:pt-1">
+      <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-6 min-[1025px]:grid-cols-12 min-[1025px]:gap-1 landscape:max-[1024px]:grid-cols-12 landscape:max-[1024px]:gap-1">
         
-        <div className="min-[1025px]:col-span-5 landscape:max-[1024px]:col-span-5 flex flex-col items-center justify-center p-4 landscape:max-[1024px]:p-1">
+        <div className="flex flex-col items-center justify-center p-4 min-[1025px]:col-span-5 landscape:max-[1024px]:col-span-5 landscape:max-[1024px]:p-1">
           <TimerDisplay timeInSeconds={remainingTime} isBreak={isBreak} />
           <TimerControls
             status={status}
@@ -85,8 +85,8 @@ export default function TimerPage({
           />
         </div>
 
-        <div className="min-[1025px]:col-span-7 landscape:max-[1024px]:col-span-7 flex items-center justify-center w-full px-4 sm:px-0 mt-4 min-[1025px]:mt-0 landscape:max-[1024px]:mt-0">
-          <div className="relative w-full max-w-[360px] min-[1025px]:max-w-[1000px] landscape:max-[1024px]:max-w-[90vh] aspect-square border-2 border-gray-900 overflow-hidden bg-[#ebebe2]">
+        <div className="mt-4 flex w-full items-center justify-center px-4 min-[1025px]:col-span-7 min-[1025px]:mt-0 sm:px-0 landscape:max-[1024px]:col-span-7 landscape:max-[1024px]:mt-0">
+          <div className="relative aspect-square w-full max-w-90 overflow-hidden border-2 border-gray-900 bg-[#ebebe2] min-[1025px]:max-w-250 landscape:max-[1024px]:max-w-[90vh]">
             {showBreakMode ? (
               <BreakTimeArea
                 elapsedTime={elapsedTime}

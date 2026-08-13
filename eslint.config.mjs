@@ -19,7 +19,6 @@ export default tseslint.config(
   
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  ...tailwind.configs['flat/recommended'],
 
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -27,8 +26,8 @@ export default tseslint.config(
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        ...globals.browser, 
-        ...globals.node,    
+        ...globals.browser,
+        ...globals.node,
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
@@ -37,21 +36,24 @@ export default tseslint.config(
     plugins: {
       react: reactPlugin,
       'react-hooks': reactHooks,
+      tailwindcss: tailwind,
     },
     rules: {
       ...reactPlugin.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      
       'react/react-in-jsx-scope': 'off',
-      
       'react/prop-types': 'off',
       
+      ...(tailwind.configs?.recommended?.rules || {}),
       'tailwindcss/no-custom-classname': 'off',
     },
     settings: {
       react: { 
-        version: 'detect' 
+        version: '19.2.8' 
       },
+      tailwindcss: {
+        cssConfigPath: './app/frontend/entrypoints/application.css'
+      }
     },
   },
   

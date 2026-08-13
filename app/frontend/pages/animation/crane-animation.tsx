@@ -50,7 +50,7 @@ export default function CarAnimation({ elapsedTime, status, stage, isPlaying}: P
   return (
     <>
       <div 
-        className={`absolute translate-y-[230%] z-20 w-[35%] aspect-square ${
+        className={`absolute z-20 aspect-square w-[35%] translate-y-[230%] ${
           carStatus === 'initial' ? 'car-initial' : 
           carStatus === 'entering' ? 'car-entering' : 
           'car-arrived'
@@ -62,7 +62,7 @@ export default function CarAnimation({ elapsedTime, status, stage, isPlaying}: P
         } as React.CSSProperties}
         onAnimationEnd={handleAnimationEnd}
       >
-        <div className="relative overflow-hidden w-full h-full">
+        <div className="relative size-full overflow-hidden">
           <img
             src={MovedImages.crane}
             alt="Car Animation"

@@ -45,8 +45,8 @@ export default function ConstructionHuman({
   const hasAnimation = status === "in_progress" || status === "paused";
 
   return (
-    <div className={`animate-fade-in absolute ${yClass} translate-x-[470%] w-[8%]  aspect-[100/200]`}>
-      <div className="relative overflow-hidden w-full h-full">
+    <div className={`animate-fade-in absolute ${yClass} aspect-[100/200] w-[8%]  translate-x-[470%]`}>
+      <div className="relative size-full overflow-hidden">
         <img
           src={MovedImages.construction_human}
           alt="Sprite Animation"
