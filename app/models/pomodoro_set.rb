@@ -2,10 +2,10 @@ class PomodoroSet < ApplicationRecord
   belongs_to :user
   has_many :pomodoro_sessions, dependent: :destroy
 
-  enum status: { in_progress: 0, completed: 1, canceled: 2, paused: 3, break_time: 4, break_paused: 5 }
+  enum :status, { in_progress: 0, completed: 1, canceled: 2, paused: 3, break_time: 4, break_paused: 5 }
 
   def start!
-    new_status = (status == 'break_paused') ? :break_time : :in_progress
+    new_status = status == 'break_paused' ? :break_time : :in_progress
     update!(status: new_status, resumed_at: Time.current)
   end
 
