@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import  "../../stylesheet/animation.css"
 import { useStageAnimation } from "../hooks/useStageAnimation";
 import { MovedImages } from "@/links/animation";
@@ -25,24 +25,17 @@ export default function ConstructionHuman({
   currentStage,
   targetStage,
 }: Props) {
-  const { showLoopingSprite } = useStageAnimation(currentStage, targetStage);
-  const [animationDelay, setAnimationDelay] = useState(0);
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  useEffect(() => {
-    if (!isInitialized) {
-      if (status === "in_progress" || status === "paused") {
-        setAnimationDelay(-(elapsedTime % SPRITE_CONFIG.animDurationSec));
-      }
-      setIsInitialized(true);
-    } else if (status === "canceled" || elapsedTime === 0) {
-      setAnimationDelay(0);
-    }
-  }, [status, elapsedTime, isInitialized]);
-
-  if (!showLoopingSprite) return null;
-
   const hasAnimation = status === "in_progress" || status === "paused";
+  const { showLoopingSprite } = useStageAnimation(currentStage, targetStage);
+
+  const [animationDelay] = useState(() => {
+    if (status === 'in_progress' || status === 'paused') {
+      return -(elapsedTime % SPRITE_CONFIG.animDurationSec);
+    }
+    return 0;
+  });
+  
+  if (!showLoopingSprite) return null;
 
   return (
     <div className={`animate-fade-in absolute ${yClass} aspect-[100/200] w-[8%]  translate-x-[470%]`}>
