@@ -1,5 +1,6 @@
 import { FixedImages } from "@/links/animation";
 import SmokeChimney from "../../../animation/smoke-chimney-animation";
+import { memo } from "react";
 
 interface Props {
   elapsedTime: number;
@@ -8,7 +9,7 @@ interface Props {
   isBreak: boolean;
 }
 
-export default function BreakTimeArea({
+function BreakTimeArea({
   elapsedTime,
   status,
   isPlaying,
@@ -32,3 +33,5 @@ export default function BreakTimeArea({
     </>
   );
 }
+
+export default memo(BreakTimeArea);

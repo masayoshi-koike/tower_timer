@@ -1,6 +1,6 @@
 import { TimerShowProps } from "@/types/timer";
 import usePomodoroTimer from "@/pages/hooks/usePomodoroTimer";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import TimerControls from "@/pages/auth/_components/timer/timer-controles";
 import TimerDisplay from "@/pages/auth/_components/timer/timer-display";
 import IllustrationArea from "@/pages/auth/_components/illustration/illustration-area";
@@ -12,16 +12,18 @@ export default function TimerPage({
   serverTime: initialServerTime,
 }: TimerShowProps) {
   const [activeSet, setActiveSet] = useState(initialActiveSet);
-  const [timeOffset, setTimeOffset] = useState(0);
+  const [prevServerTime, setPrevServerTime] = useState(initialServerTime);
 
-  useEffect(() => {
-    if (initialServerTime) {
-      const clientTime = new Date().getTime();
-      setTimeOffset(initialServerTime - clientTime);
-    }
-  }, [initialServerTime]);
+  const [timeOffset, setTimeOffset] = useState(() => {
+    return initialServerTime ? initialServerTime - new Date().getTime() : 0;
+  });
 
-  const updateTimerState = async (url: string) => {
+  if (initialServerTime !== prevServerTime) {
+    setPrevServerTime(initialServerTime);
+    setTimeOffset(initialServerTime ? initialServerTime - new Date().getTime() : 0);
+  }
+
+  const updateTimerState = useCallback(async (url: string) => {
     const csrfToken = document
       .querySelector('meta[name="csrf-token"]')
       ?.getAttribute("content");
@@ -49,11 +51,12 @@ export default function TimerPage({
     } catch (error) {
       console.error("Timer action failed:", error);
     }
-  };
+  }, []);
 
-  const handleStart = () => updateTimerState("/timer/start");
-  const handleStop = () => updateTimerState("/timer/stop");
-  const handleReset = () => updateTimerState("/timer/reset");
+  const handleStart = useCallback(() => updateTimerState("/timer/start"), [updateTimerState]);
+  const handleStop = useCallback(() => updateTimerState("/timer/stop"), [updateTimerState]);
+  const handleReset = useCallback(() => updateTimerState("/timer/reset"), [updateTimerState]);
+  const handleComplete = useCallback(() => updateTimerState("/timer/complete"), [updateTimerState]);
 
   const {
     elapsedTime,
@@ -67,8 +70,8 @@ export default function TimerPage({
   } = usePomodoroTimer({
     activeSet,
     timeOffset,
-    onComplete: () => updateTimerState("/timer/complete"),
-    onReset: () => updateTimerState("/timer/reset"),
+    onComplete: handleComplete,
+    onReset: handleReset
   });
 
   return (

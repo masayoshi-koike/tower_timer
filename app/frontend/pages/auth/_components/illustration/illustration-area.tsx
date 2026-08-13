@@ -6,6 +6,7 @@ import ConstructionHuman from "@/pages/animation/construction-human-animation";
 import SmokePeaple from "@/pages/animation/smoke-people-animation";
 import Cat from "@/pages/animation/cat-animation";
 import Transform from "@/pages/animation/transform-animation";
+import { memo } from "react";
 
 interface Props {
   elapsedTime: number;
@@ -37,7 +38,7 @@ const CONSTRUCTION_CONFIGS = [
   { stage: 4, targetStage: 4, yClass: "translate-y-[-22%]" },
 ];
 
-export default function IllustrationArea({
+function IllustrationArea({
   elapsedTime,
   status,
   stage,
@@ -147,3 +148,5 @@ export default function IllustrationArea({
     </>
   );
 }
+
+export default memo(IllustrationArea);

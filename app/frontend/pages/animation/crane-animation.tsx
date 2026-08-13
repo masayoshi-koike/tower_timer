@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MovedImages } from "@/links/animation";
 import "../../stylesheet/craneAnimation.css";
 
@@ -18,28 +18,37 @@ interface Props {
 }
 
 export default function CarAnimation({ elapsedTime, status, stage, isPlaying}: Props) {
-  const [carStatus, setCarStatus] = useState<'initial' | 'entering' | 'arrived'>(() => {
-    if (status === 'canceled' || status === 'none') return 'initial';
+const [carStatus, setCarStatus] = useState<'initial' | 'entering' | 'arrived'>(() => {
+    if (status === 'canceled' || status === 'none' || stage > 0) return 'initial';
     if (elapsedTime >= SPRITE_CONFIG.moveDuration / 1000) return 'arrived';
     return 'initial';
   });
   const [initialDelay, setInitialDelay] = useState(0);
+  const [prevProps, setPrevProps] = useState({ status, stage, isPlaying });
 
-  useEffect(() => {
-    if (status === 'canceled' || status === 'none') {
+  if (
+    status !== prevProps.status ||
+    stage !== prevProps.stage ||
+    isPlaying !== prevProps.isPlaying
+  ) {
+    setPrevProps({ status, stage, isPlaying });
+
+    if (status === 'canceled' || status === 'none' || stage > 0) {
       setCarStatus('initial');
       setInitialDelay(0);
-      return;
-    }
-    
-    if (isPlaying && stage === 0 && elapsedTime >= SPRITE_CONFIG.moveDuration / 1000) {
-      setCarStatus('arrived');
     } else if (isPlaying && stage === 0 && carStatus === 'initial') {
-      setInitialDelay(elapsedTime * 1000);
-      setCarStatus('entering');
+      if (elapsedTime >= SPRITE_CONFIG.moveDuration / 1000) {
+        setCarStatus('arrived');
+      } else {
+        setInitialDelay(elapsedTime * 1000);
+        setCarStatus('entering');
+      }
     }
-    if(stage > 0 ) return setCarStatus('initial')
-  }, [status, isPlaying, stage, carStatus]);
+  }
+
+  if (carStatus === 'entering' && elapsedTime >= SPRITE_CONFIG.moveDuration / 1000) {
+    setCarStatus('arrived');
+  }
 
   const handleAnimationEnd = (e: React.AnimationEvent) => {
     if (e.animationName === 'moveIn') {
