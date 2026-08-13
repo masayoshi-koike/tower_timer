@@ -107,10 +107,13 @@ GEM
     debug (1.11.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    diff-lcs (1.6.2)
     drb (2.2.3)
     dry-cli (1.4.1)
     erb (6.0.7)
     erubi (1.13.1)
+    factory_bot (6.6.0)
+      activesupport (>= 6.1.0)
     globalid (1.4.0)
       activesupport (>= 6.1)
     i18n (1.15.2)
@@ -233,6 +236,23 @@ GEM
     reline (0.7.0)
       io-console (~> 0.5)
     rexml (3.4.4)
+    rspec-core (3.13.6)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.8)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-rails (8.0.4)
+      actionpack (>= 7.2)
+      activesupport (>= 7.2)
+      railties (>= 7.2)
+      rspec-core (>= 3.13.0, < 5.0.0)
+      rspec-expectations (>= 3.13.0, < 5.0.0)
+      rspec-mocks (>= 3.13.0, < 5.0.0)
+      rspec-support (>= 3.13.0, < 5.0.0)
+    rspec-support (3.13.7)
     rubocop (1.89.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -270,6 +290,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    simplecov (1.1.1)
     thor (1.5.0)
     timeout (0.6.1)
     tsort (0.2.0)
@@ -314,14 +335,18 @@ DEPENDENCIES
   bullet
   capybara
   debug
+  factory_bot (>= 6.4.6)
   inertia_rails (~> 3.22)
   pg (~> 1.1)
   propshaft
   puma (>= 5.0)
   rails (~> 7.2.3, >= 7.2.3.2)
   rails-i18n (~> 7.0.0)
+  rspec-rails (~> 8.0.0)
+  rubocop
   rubocop-rails-omakase
   selenium-webdriver
+  simplecov
   tzinfo-data
   vite_rails (~> 3.11)
   web-console
