@@ -8,10 +8,9 @@ class UserSessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path
     else
-      redirect_back fallback_location: root_path, 
-                    inertia: { errors: {
-                      base: 'メールアドレスまたはパスワードが間違っています。'
-                    } }
+      redirect_back_or_to(root_path, inertia: { errors: {
+                            base: 'メールアドレスまたはパスワードが間違っています。'
+                          } })
     end
   end
 
