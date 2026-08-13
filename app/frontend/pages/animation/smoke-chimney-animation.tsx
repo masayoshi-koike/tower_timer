@@ -37,8 +37,8 @@ export default function SmokeChimney({
   }, [status, elapsedTime, isInitialized]);
 
   return (
-    <div className={`absolute aspect-[100/200] ${isBreak ? "translate-y-[5%] translate-x-[110%] w-[25%]" : "translate-y-[165%] translate-x-[500%] w-[13%]"} `}>
-      <div className="relative overflow-hidden w-full h-full">
+    <div className={`absolute aspect-[100/200] ${isBreak ? "w-[25%] translate-x-[110%] translate-y-[5%]" : "w-[13%] translate-x-[500%] translate-y-[165%]"} `}>
+      <div className="relative size-full overflow-hidden">
         <img
           src={MovedImages.smoke_chimney}
           alt="Sprite Animation"

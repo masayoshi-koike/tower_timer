@@ -36,7 +36,7 @@ export default function LoginDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] overflow-hidden">
+      <DialogContent className="overflow-hidden sm:max-w-[425px]">
         <form onSubmit={onSubmit}>
           <DialogHeader>
             <DialogTitle className="text-xl">ログイン</DialogTitle>

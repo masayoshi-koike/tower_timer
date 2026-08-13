@@ -26,8 +26,8 @@ export default function Transform({ status, isPlaying, yClass, currentStage, tar
   
 
   return (
-    <div className={`absolute ${yClass} translate-x-[30%] z-20 w-[60%] aspect-square`}>
-      <div className="relative overflow-hidden w-full h-full">
+    <div className={`absolute ${yClass} z-20 aspect-square w-[60%] translate-x-[30%]`}>
+      <div className="relative size-full overflow-hidden">
         <img
           src={MovedImages.transform}
           alt="Sprite Animation"

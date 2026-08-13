@@ -35,8 +35,8 @@ export default function Cat({
   const hasAnimation = status === "in_progress" || status === "paused";
 
   return (
-    <div className={`absolute translate-y-[370%] translate-x-[630%] w-[6.5%]  aspect-[100/200]`}>
-      <div className="relative overflow-hidden w-full h-full">
+    <div className={`absolute aspect-[100/200] w-[6.5%] translate-x-[630%]  translate-y-[370%]`}>
+      <div className="relative size-full overflow-hidden">
         <img
           src={MovedImages.cat}
           alt="Sprite Animation"

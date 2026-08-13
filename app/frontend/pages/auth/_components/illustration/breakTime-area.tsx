@@ -19,7 +19,7 @@ export default function BreakTimeArea({
     <>
       <img
         src={FixedImages.breakTime}
-        className="absolute w-full h-full object-contain"
+        className="absolute size-full object-contain"
         alt="background_img"
       />
       <SmokeChimney
