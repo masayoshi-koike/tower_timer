@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { memo } from "react";
 
 interface Props {
   status: string;
@@ -7,7 +8,7 @@ interface Props {
   onReset: () => void;
 }
 
-export default function TimerControls({
+function TimerControls({
   status,
   onStart,
   onStop,
@@ -46,3 +47,5 @@ export default function TimerControls({
     </div>
   );
 }
+
+export default memo(TimerControls);

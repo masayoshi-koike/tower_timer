@@ -1,9 +1,11 @@
+import { memo } from "react";
+
 interface Props {
   timeInSeconds: number;
   isBreak: boolean;
 }
 
-export default function TimerDisplay({
+function TimerDisplay({
   timeInSeconds,
   isBreak,
 }: Props) {
@@ -25,3 +27,5 @@ export default function TimerDisplay({
     </div>
   );
 }
+
+export default memo(TimerDisplay)

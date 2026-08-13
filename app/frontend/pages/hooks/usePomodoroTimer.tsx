@@ -1,5 +1,5 @@
-import { UsePomodoroTimerProps } from "@/types/timer";
-import { useEffect, useState } from "react";
+import { UsePomodoroTimerProps } from '@/types/timer';
+import { useEffect, useRef, useState } from 'react';
 
 const WORK_DURATION = 25 * 60;
 const BREAK_DURATION = 5 * 60;
@@ -10,54 +10,65 @@ export default function usePomodoroTimer({
   onComplete,
   onReset,
 }: UsePomodoroTimerProps) {
-  const isBreakStatus =
-    activeSet?.status === "break_time" || activeSet?.status === "break_paused";
+  const isBreakStatus = activeSet?.status === 'break_time' || activeSet?.status === 'break_paused';
   const totalDuration = isBreakStatus ? BREAK_DURATION : WORK_DURATION;
-  const [remainingTime, setRemainingTime] = useState(() => {
-    if (!activeSet || activeSet.status === "canceled") {
-      return WORK_DURATION;
-    }
-    if (activeSet.status === "paused" || activeSet.status === "break_paused") {
-      return Math.max(totalDuration - activeSet.elapsed_time, 0);
-    }
-    const now = new Date().getTime() + timeOffset;
-    const resumedAt = activeSet.resumed_at
-      ? new Date(activeSet.resumed_at).getTime()
-      : now;
-    const diffInSeconds = Math.max(Math.floor((now - resumedAt) / 1000), 0);
-    const totalElapsed = activeSet.elapsed_time + diffInSeconds;
-    return Math.max(totalDuration - totalElapsed, 0);
-  });
+
+  const onCompleteRef = useRef(onComplete);
+  const onResetRef = useRef(onReset);
 
   useEffect(() => {
-    if (!activeSet || activeSet.status === "canceled") {
-      setRemainingTime(WORK_DURATION);
-      return;
-    }
+    onCompleteRef.current = onComplete;
+    onResetRef.current = onReset;
+  }, [onComplete, onReset]);
 
-    if (activeSet.status === "paused" || activeSet.status === "break_paused") {
-      setRemainingTime(Math.max(totalDuration - activeSet.elapsed_time, 0));
+  const [now, setNow] = useState(() => new Date().getTime());
+
+  const currentTimeWithOffset = now + timeOffset;
+  
+  const remainingTime = (() => {
+    if (!activeSet || activeSet.status === 'canceled') {
+      return WORK_DURATION;
+    }
+    if (activeSet.status === 'paused' || activeSet.status === 'break_paused') {
+      return Math.max(totalDuration - activeSet.elapsed_time, 0);
+    }
+    const resumedAt = activeSet.resumed_at
+      ? new Date(activeSet.resumed_at).getTime()
+      : currentTimeWithOffset;
+    const diffInSeconds = Math.max(Math.floor((currentTimeWithOffset - resumedAt) / 1000), 0);
+    const totalElapsed = activeSet.elapsed_time + diffInSeconds;
+    return Math.max(totalDuration - totalElapsed, 0);
+  })();
+
+  useEffect(() => {
+    if (
+      !activeSet ||
+      activeSet.status === 'canceled' ||
+      activeSet.status === 'paused' ||
+      activeSet.status === 'break_paused'
+    ) {
       return;
     }
 
     const interval = setInterval(() => {
-      const now = new Date().getTime() + timeOffset;
+      const currentNow = new Date().getTime();
+      setNow(currentNow);
+
+      const timeWithOffset = currentNow + timeOffset;
       const resumedAt = activeSet.resumed_at
         ? new Date(activeSet.resumed_at).getTime()
-        : now;
+        : timeWithOffset;
 
-      const diffInSeconds = Math.max(Math.floor((now - resumedAt) / 1000), 0);
+      const diffInSeconds = Math.max(Math.floor((timeWithOffset - resumedAt) / 1000), 0);
       const totalElapsed = activeSet.elapsed_time + diffInSeconds;
       const newRemaining = Math.max(totalDuration - totalElapsed, 0);
 
-      setRemainingTime(newRemaining);
-
       if (newRemaining <= 0) {
         clearInterval(interval);
-        if (activeSet.status === "in_progress") {
-          onComplete();
-        } else if (activeSet.status === "break_time") {
-          onReset();
+        if (activeSet.status === 'in_progress') {
+          onCompleteRef.current?.();
+        } else if (activeSet.status === 'break_time') {
+          onResetRef.current?.();
         }
       }
     }, 200);
@@ -65,19 +76,17 @@ export default function usePomodoroTimer({
     return () => clearInterval(interval);
   }, [activeSet, totalDuration, timeOffset]);
 
-  const progressPercent =
-    ((totalDuration - remainingTime) / totalDuration) * 100;
+  const progressPercent = ((totalDuration - remainingTime) / totalDuration) * 100;
   const animationStage = Math.min(Math.floor(progressPercent / 20), 4);
-  const isPlaying =
-    activeSet?.status === "in_progress" || activeSet?.status === "break_time";
+  const isPlaying = activeSet?.status === 'in_progress' || activeSet?.status === 'break_time';
 
   const isCompleted = activeSet?.is_completed || false;
   const isJustFinished = !isBreakStatus && remainingTime <= 0;
   const isFinished = isCompleted || isJustFinished;
 
   const showBreakMode =
-    activeSet?.status === "break_time" ||
-    (activeSet?.status === "break_paused" && activeSet.elapsed_time > 0);
+    activeSet?.status === 'break_time' ||
+    (activeSet?.status === 'break_paused' && activeSet.elapsed_time > 0);
 
   return {
     elapsedTime: totalDuration - remainingTime,
@@ -87,6 +96,6 @@ export default function usePomodoroTimer({
     isBreak: isBreakStatus,
     isFinished: isFinished,
     showBreakMode: showBreakMode,
-    status: activeSet?.status || "none",
+    status: activeSet?.status || 'none',
   };
 }
