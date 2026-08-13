@@ -1,19 +1,30 @@
-import { useState, useEffect, } from "react";
+import { useState, useEffect, useRef, } from "react";
 
 export function useStageAnimation(currentStage: number, targetStage: number, customTrigger?: boolean) {
   const [showOneTimeSprite, setShowOneTimeSprite] = useState(false);
   const [showLoopingSprite, setShowLoopingSprite] = useState(false);
 
-  const [prevStage, setPrevStage] = useState(currentStage);
-  const [prevTrigger, setPrevTrigger] = useState(customTrigger);
+  const prevStageRef = useRef(currentStage);
+  const prevTriggerRef = useRef(customTrigger);
 
-  if (currentStage !== prevStage || customTrigger !== prevTrigger) {
-    const isStageProgress = currentStage === targetStage && prevStage === targetStage - 1;
-    const isTriggerFired = customTrigger && !prevTrigger;
+  useEffect(() => {
+    const isStageProgress = currentStage === targetStage && prevStageRef.current === targetStage - 1;
+    const isTriggerFired = customTrigger && !prevTriggerRef.current;
+
+    let oneTimeTimer: ReturnType<typeof setTimeout>;
+    let loopTimer: ReturnType<typeof setTimeout>;
 
     if (isStageProgress || isTriggerFired) {
       setShowOneTimeSprite(true);
       setShowLoopingSprite(false);
+
+      oneTimeTimer = setTimeout(() => {
+        setShowOneTimeSprite(false);
+      }, 1000);
+
+      loopTimer = setTimeout(() => {
+        setShowLoopingSprite(true);
+      }, 4000);
     } 
     else if (currentStage === targetStage) {
       setShowOneTimeSprite(false);
@@ -24,26 +35,14 @@ export function useStageAnimation(currentStage: number, targetStage: number, cus
       setShowLoopingSprite(false);
     }
 
-    setPrevStage(currentStage);
-    setPrevTrigger(customTrigger);
-  };
+    prevStageRef.current = currentStage;
+    prevTriggerRef.current = customTrigger;
 
-  useEffect(() => {
-    if (showOneTimeSprite) {
-      const oneTimeTimer = setTimeout(() => {
-        setShowOneTimeSprite(false);
-      }, 1000);
-
-      const loopTimer = setTimeout(() => {
-        setShowLoopingSprite(true);
-      }, 4000);
-
-      return () => {
-        clearTimeout(oneTimeTimer);
-        clearTimeout(loopTimer);
-      };
-    }
-  }, [showOneTimeSprite]); 
+    return () => {
+      if (oneTimeTimer) clearTimeout(oneTimeTimer);
+      if (loopTimer) clearTimeout(loopTimer);
+    };
+  }, [currentStage, targetStage, customTrigger]);
 
   return { showOneTimeSprite, showLoopingSprite };
 }
