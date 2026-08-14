@@ -7,9 +7,9 @@ class User < ApplicationRecord
   attribute :status, :integer, default: 0
   enum :status, { general: 0, guest: 1 }
 
-  validates :name, presence: true, length: { maximum: 20 }, unless: :guest?
+  validates :name, presence: true, length: { maximum: 20 }
   validates :password, length: { minimum: 3 }, if: -> { new_record? || (changes[:password_digest] && !guest?)}
-  validates :email, presence: true, uniqueness: true, unless: :guest?
+  validates :email, presence: true, uniqueness: true
 
   def self.create_guest!
     create!(
