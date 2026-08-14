@@ -12,7 +12,7 @@ class PomodoroSet < ApplicationRecord
   def stop!
     return false unless in_progress? || break_time?
 
-    additional_time = (Time.current - resumed_at).to_i
+    additional_time = (Time.current - resumed_at).round
     new_status = break_time? ? :break_paused : :paused
 
     update!(
