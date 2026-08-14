@@ -59,10 +59,15 @@ RSpec.describe "Timers", type: :request do
     context "進行中(in_progress)のPomodoroSetが存在する場合" do
       it "経過時間がelapsed_timeに加算され、statusがpausedになること" do
         login_as(user)
-        resumed_at = Time.current
-        pomodoro_set = create(:pomodoro_set, :in_progress, user: user, elapsed_time: 10, resumed_at: resumed_at)
+        
+        base_time = Time.current.change(usec: 0)
+        
+        pomodoro_set = create(:pomodoro_set, :in_progress, user: user, elapsed_time: 10, resumed_at: base_time)
 
-        travel_to(resumed_at + 50.seconds) { post "/timer/stop" }
+        travel_to(base_time + 50.seconds) do
+          post "/timer/stop"
+        end
+
         pomodoro_set.reload
 
         expect(pomodoro_set).to be_paused
@@ -85,13 +90,20 @@ RSpec.describe "Timers", type: :request do
     context "休憩中(break_time)のPomodoroSetが存在する場合" do
       it "ステータスがbreak_pausedになること" do
         login_as(user)
-        resumed_at = Time.current
-        pomodoro_set = create(:pomodoro_set, :break_time, user: user, elapsed_time: 0, resumed_at: resumed_at)
-
-        travel_to(resumed_at + 10.seconds) { post "/timer/stop" }
         
-        expect(pomodoro_set.reload).to be_break_paused
+        base_time = Time.current.change(usec: 0)
+        
+        pomodoro_set = create(:pomodoro_set, :break_time, user: user, elapsed_time: 0, resumed_at: base_time)
+
+        travel_to(base_time + 10.seconds) do
+          post "/timer/stop"
+        end
+
+        pomodoro_set.reload
+
+        expect(pomodoro_set).to be_break_paused
         expect(pomodoro_set.elapsed_time).to eq(10)
+        expect(pomodoro_set.resumed_at).to be_nil
       end
     end
   end
