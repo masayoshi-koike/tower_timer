@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
 
     if @user
       session[:user_id] = @user.id
-      redirect_to root_path
+      redirect_to root_path, flash: { success: "ログインしました" }
     else
       redirect_back_or_to(root_path, inertia: { errors: {
                             base: 'メールアドレスまたはパスワードが間違っています。'
@@ -16,6 +16,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to root_path, status: :see_other
+    redirect_to root_path, status: :see_other, flash: { success: "ログアウトしました" }
   end
 end

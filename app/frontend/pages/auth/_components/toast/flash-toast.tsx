@@ -4,7 +4,7 @@ import { usePage } from "@inertiajs/react";
 import { useEffect } from "react";
 
 
-export default function SignUpToast() {
+export default function FlashToast() {
   const { flash } = usePage<FlashProps>().props;
   console.log("Current Flash Props:", flash);
 
