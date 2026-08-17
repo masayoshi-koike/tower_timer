@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, } from "react";
+import { useState, useRef, useLayoutEffect, } from "react";
 
 export function useStageAnimation(currentStage: number, targetStage: number, customTrigger?: boolean) {
   const [showOneTimeSprite, setShowOneTimeSprite] = useState(false);
@@ -7,42 +7,47 @@ export function useStageAnimation(currentStage: number, targetStage: number, cus
   const prevStageRef = useRef(currentStage);
   const prevTriggerRef = useRef(customTrigger);
 
-  useEffect(() => {
-    const isStageProgress = currentStage === targetStage && prevStageRef.current === targetStage - 1;
-    const isTriggerFired = customTrigger && !prevTriggerRef.current;
+  useLayoutEffect(() => {
+  const isStageProgress = currentStage === targetStage && prevStageRef.current === targetStage - 1;
+  const isTriggerFired = customTrigger && !prevTriggerRef.current;
 
-    let oneTimeTimer: ReturnType<typeof setTimeout>;
-    let loopTimer: ReturnType<typeof setTimeout>;
+  let oneTimeTimer: ReturnType<typeof setTimeout>;
+  let loopTimer: ReturnType<typeof setTimeout>;
 
-    if (isStageProgress || isTriggerFired) {
-      setShowOneTimeSprite(true);
-      setShowLoopingSprite(false);
+  if (isStageProgress || isTriggerFired) {
+    setShowOneTimeSprite(true);
+    setShowLoopingSprite(false);
 
-      oneTimeTimer = setTimeout(() => {
-        setShowOneTimeSprite(false);
-      }, 1000);
-
-      loopTimer = setTimeout(() => {
-        setShowLoopingSprite(true);
-      }, 4000);
-    } 
-    else if (currentStage === targetStage) {
+    oneTimeTimer = setTimeout(() => {
       setShowOneTimeSprite(false);
+    }, 1000);
+
+    loopTimer = setTimeout(() => {
       setShowLoopingSprite(true);
-    } 
-    else {
-      setShowOneTimeSprite(false);
-      setShowLoopingSprite(false);
-    }
+    }, 4000);
+  } 
+  else if (currentStage === targetStage) {
 
-    prevStageRef.current = currentStage;
-    prevTriggerRef.current = customTrigger;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShowOneTimeSprite(false);
+    setShowLoopingSprite(true);
+  } 
+  else {
+    setShowLoopingSprite(false);
+    setShowOneTimeSprite((prev) => {
+      if (prev) return true; 
+      return false;
+    });
+  }
 
-    return () => {
-      if (oneTimeTimer) clearTimeout(oneTimeTimer);
-      if (loopTimer) clearTimeout(loopTimer);
-    };
+  prevStageRef.current = currentStage;
+  prevTriggerRef.current = customTrigger;
+
+  return () => {
+    if (oneTimeTimer) clearTimeout(oneTimeTimer);
+    if (loopTimer) clearTimeout(loopTimer);
+  };
   }, [currentStage, targetStage, customTrigger]);
-
+  
   return { showOneTimeSprite, showLoopingSprite };
 }
