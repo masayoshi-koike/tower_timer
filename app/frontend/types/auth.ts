@@ -6,7 +6,17 @@ export interface Auth {
   total_minutes: number;
 }
 
+export interface Flash {
+  success?: string;
+  error?: string;
+}
+
 export interface PageProps {
   auth: Auth;
+  [key: string]: unknown;
+}
+
+export interface FlashProps {
+  flash: Flash;
   [key: string]: unknown;
 }

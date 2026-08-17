@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
         user: current_user,
         loggedIn: logged_in?,
         total_minutes: current_user&.total_study_minutes || 0
+      },
+      flash: {
+        success: flash[:success],
+        error: flash[:error]
       }
     }
   end

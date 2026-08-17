@@ -77,7 +77,6 @@ export default function TimerPage({
   return (
     <div className="flex w-full flex-1 flex-col items-center justify-center overflow-x-hidden px-2 pt-16 sm:px-5 sm:pt-4 landscape:max-[1024px]:pt-1">
       <div className="grid w-full max-w-7xl grid-cols-1 items-center gap-6 min-[1025px]:grid-cols-12 min-[1025px]:gap-1 landscape:max-[1024px]:grid-cols-12 landscape:max-[1024px]:gap-1">
-        
         <div className="flex flex-col items-center justify-center p-4 min-[1025px]:col-span-5 landscape:max-[1024px]:col-span-5 landscape:max-[1024px]:p-1">
           <TimerDisplay timeInSeconds={remainingTime} isBreak={isBreak} />
           <TimerControls
@@ -87,7 +86,6 @@ export default function TimerPage({
             onReset={handleReset}
           />
         </div>
-
         <div className="mt-4 flex w-full items-center justify-center px-4 min-[1025px]:col-span-7 min-[1025px]:mt-0 sm:px-0 landscape:max-[1024px]:col-span-7 landscape:max-[1024px]:mt-0">
           <div className="relative aspect-square w-full max-w-90 overflow-hidden border-2 border-gray-900 bg-[#ebebe2] min-[1025px]:max-w-250 landscape:max-[1024px]:max-w-[90vh]">
             {showBreakMode ? (
