@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 export default function FlashToast() {
   const { flash } = usePage<FlashProps>().props;
-  console.log("Current Flash Props:", flash);
 
   useEffect(() => {
     if (!flash) return;

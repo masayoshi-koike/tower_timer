@@ -6,6 +6,7 @@ import TimerDisplay from "@/pages/auth/_components/timer/timer-display";
 import IllustrationArea from "@/pages/auth/_components/illustration/illustration-area";
 import BreakTimeArea from "@/pages/auth/_components/illustration/breakTime-area";
 import { router } from "@inertiajs/core";
+import PixelFrame from "@/pages/auth/_components/illustration/pixel-frame";
 
 export default function TimerPage({
   activeSet: initialActiveSet,
@@ -87,7 +88,7 @@ export default function TimerPage({
           />
         </div>
         <div className="mt-4 flex w-full items-center justify-center px-4 min-[1025px]:col-span-7 min-[1025px]:mt-0 sm:px-0 landscape:max-[1024px]:col-span-7 landscape:max-[1024px]:mt-0">
-          <div className="relative aspect-square w-full max-w-90 overflow-hidden border-2 border-gray-900 bg-[#ebebe2] min-[1025px]:max-w-250 landscape:max-[1024px]:max-w-[90vh]">
+          <PixelFrame>
             {showBreakMode ? (
               <BreakTimeArea
                 elapsedTime={elapsedTime}
@@ -104,7 +105,7 @@ export default function TimerPage({
                 isFinished={isFinished}
               />
             )}
-          </div>
+          </PixelFrame>
         </div>
       </div>
     </div>
