@@ -7,6 +7,7 @@ import thirdFloor from "../../assets/images/towerImages/fixedImages/mainTower/to
 import fourthFloor from "../../assets/images/towerImages/fixedImages/mainTower/tower_floor_4.svg";
 import fifthFloor from "../../assets/images/towerImages/fixedImages/mainTower/tower_floor_5.svg";
 import breakTime from "../../assets/images/towerImages/fixedImages/break_time.svg"
+import breakTxt from "../../assets/images/towerImages/fixedImages/break_txt.svg"
 import airplane from "../../assets/images/towerImages/movedImages/airplane.svg"
 import car from "../../assets/images/towerImages/movedImages/car.svg"
 import cat from "../../assets/images/towerImages/movedImages/cat.svg"
@@ -26,6 +27,7 @@ export const FixedImages = {
   fourthFloor,
   fifthFloor,
   breakTime,
+  breakTxt,
 };
 
 export const MovedImages = {
