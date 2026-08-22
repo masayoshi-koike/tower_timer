@@ -26,7 +26,7 @@ export default function SmokeChimney({ elapsedTime, status, isPlaying, isBreak }
 
   return (
     <div
-      className={`absolute aspect-[100/200] ${isBreak ? 'w-[25%] translate-x-[110%] translate-y-[5%]' : 'w-[13%] translate-x-[500%] translate-y-[165%]'} `}
+      className='absolute aspect-[100/200] w-[13%] translate-x-[500%] translate-y-[165%]'
     >
       <div className="relative size-full overflow-hidden">
         <img
