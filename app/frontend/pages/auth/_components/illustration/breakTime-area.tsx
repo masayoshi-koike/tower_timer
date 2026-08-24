@@ -1,4 +1,6 @@
 import { FixedImages } from "@/links/animation";
+import BreakCat from "@/pages/animation/break-cat-animation";
+import CoffeeSmoke from "@/pages/animation/coffee-smoke-animation";
 import { memo } from "react";
 
 interface Props {
@@ -12,7 +14,6 @@ function BreakTimeArea({
   elapsedTime,
   status,
   isPlaying,
-  isBreak,
 }: Props) {
   
   return (
@@ -27,6 +28,8 @@ function BreakTimeArea({
         className="absolute size-[20%] object-contain"
         alt="background_img"
       />
+      <BreakCat elapsedTime={elapsedTime} status={status} isPlaying={isPlaying} />
+      <CoffeeSmoke elapsedTime={elapsedTime} status={status} isPlaying={isPlaying} />
     </>
   );
 }

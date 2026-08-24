@@ -16,6 +16,8 @@ import crane from "../../assets/images/towerImages/movedImages/crane_truck.svg"
 import smoke_chimney from "../../assets/images/towerImages/movedImages/smoke_chimney.svg"
 import smoke_people from "../../assets/images/towerImages/movedImages/smoke_people.svg"
 import transform from "../../assets/images/towerImages/movedImages/transform.svg"
+import break_cat from "../../assets/images/towerImages/movedImages/cat2.svg"
+import coffee_smoke from "../../assets/images/towerImages/movedImages/coffee_smoke.svg"
 
 export const FixedImages = {
   background,
@@ -38,5 +40,7 @@ export const MovedImages = {
   crane,
   smoke_chimney,
   smoke_people,
-  transform
+  transform,
+  break_cat,
+  coffee_smoke,
 }
