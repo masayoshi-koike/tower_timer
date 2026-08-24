@@ -51,11 +51,14 @@ RSpec.describe "Timer authorization", type: :request do
     include_examples "他人のPomodoroSetを操作できない"
 
     it "ゲスト自身のPomodoroSetは作成され、owner分とは別レコードであること" do
-      post "/timer/start"
+      expect {
+        post "/timer/start"
+      }.to change(PomodoroSet, :count).by(1)
 
       json = response.parsed_body
       expect(json["activeSet"]["id"]).not_to eq(owners_set.id)
-      expect(PomodoroSet.where.not(user: owner).count).to eq(1)
+      new_set = PomodoroSet.find(json["activeSet"]["id"])
+      expect(new_set.user_id).not_to eq(owner.id)
     end
   end
 end

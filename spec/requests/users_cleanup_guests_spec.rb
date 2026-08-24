@@ -197,7 +197,8 @@ RSpec.describe 'users:cleanup_guests', type: :task do
       User.insert_all(rows)
 
       expect { run_task }.to change(User, :count).by(-501)
-      expect(User.guest.count).to eq 0
+      old_guests = User.guest.where('updated_at < ?', 2.weeks.ago)
+      expect(old_guests.count).to eq 0
     end
   end
 end

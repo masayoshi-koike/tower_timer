@@ -148,7 +148,7 @@
       -ms-user-select: none;
           user-select: none;
   color: #212529;
-  background-color: #fff;
+  background-color: #F1F1EA;
 }
 
 @media all and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
