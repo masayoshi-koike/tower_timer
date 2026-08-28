@@ -17,7 +17,7 @@ export default function BreakCat({ elapsedTime, status, isPlaying }: Props) {
   const hasAnimation = status === 'break_time' || status === 'break_paused';
 
   const [animationDelay] = useState(() => {
-    if (status === 'in_progress' || status === 'paused') {
+    if (status === 'break_time' || status === 'break_paused') {
       return -(elapsedTime % SPRITE_CONFIG.animDurationSec);
     }
     return 0;
