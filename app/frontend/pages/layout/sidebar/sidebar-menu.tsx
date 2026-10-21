@@ -7,19 +7,25 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChartPie, LucideCircleUserRound } from "lucide-react";
+import { ChartPie, LucideCircleUserRound, Timer } from "lucide-react";
 import { usePage } from "@inertiajs/react";
 import { PageProps } from "@/types/auth";
+import { HomeView } from "@/types/view";
 
 import { useSidebarModals } from "@/pages/hooks/useSidebarModals"; 
 import { SidebarModals } from "@/pages/auth/_components/sidebar/sidebar-modals";         
 
 const MENU_BUTTON_CLASS = "h-12 [&>svg]:size-8 w-full group-data-[collapsible=icon]:!w-13 group-data-[collapsible=icon]:!h-13";
 
-export default function SidebarMenus() {
+interface SidebarMenusProps {
+  view: HomeView;
+  onViewChange: (view: HomeView) => void;
+}
+
+export default function SidebarMenus({ view, onViewChange }: SidebarMenusProps) {
   const { auth } = usePage<PageProps>().props;
   
-  const { state, actions } = useSidebarModals(auth.loggedIn);
+  const { state, actions } = useSidebarModals(auth.loggedIn, onViewChange);
 
   return (
     <>
@@ -45,7 +51,22 @@ export default function SidebarMenus() {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     className={MENU_BUTTON_CLASS}
-                    onClick={actions.handleTotalTimeClick}
+                    isActive={view === "timer"}
+                    onClick={actions.handleTimerClick}
+                    tooltip="タイマー"
+                  >
+                    <Timer />
+                    <span className="truncate group-data-[collapsible=icon]:hidden">
+                      タイマー
+                    </span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    className={MENU_BUTTON_CLASS}
+                    isActive={view === "parameter"}
+                    onClick={actions.handleParameterClick}
                     tooltip="パラメーター"
                   >
                     <ChartPie />

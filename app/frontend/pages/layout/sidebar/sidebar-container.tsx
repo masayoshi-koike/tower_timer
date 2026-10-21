@@ -5,12 +5,15 @@ import {
 } from "@/components/ui/sidebar";
 import { ReactNode } from "react";
 import SidebarMenus from "./sidebar-menu";
+import { HomeView } from "@/types/view";
 
 interface AppLayoutProps {
   children: ReactNode;
+  view: HomeView;
+  onViewChange: (view: HomeView) => void;
 }
 
-export default function SidberContainer({ children }: AppLayoutProps) {
+export default function SidberContainer({ children, view, onViewChange }: AppLayoutProps) {
 
   return (
     <SidebarProvider
@@ -23,7 +26,7 @@ export default function SidberContainer({ children }: AppLayoutProps) {
       }
       defaultOpen={false}
     >
-      <SidebarMenus />
+      <SidebarMenus view={view} onViewChange={onViewChange} />
       <SidebarInset className="relative w-full overflow-x-hidden bg-[#ebebe2]">
         <div className="absolute top-4 left-4 z-50">
           <SidebarTrigger />

@@ -1,6 +1,6 @@
 import LoginContainer from '../login/login-container';
 import SignupContainer from '../signup/signup-container';
-import TotalTimeModal from '../timer/totalTime-modal';
+import LoginRequiredModal from './login-required-modal';
 import UserMenuModal from '../userMenu/userMenuModal';
 
 
@@ -12,9 +12,9 @@ type SidebarModalsProps = {
 export function SidebarModals({ state, actions }: SidebarModalsProps) {
   return (
     <>
-      <TotalTimeModal
-        isOpen={state.isTotalTimeOpen}
-        onOpenChange={actions.setIsTotalTimeOpen}
+      <LoginRequiredModal
+        isOpen={state.isLoginRequiredOpen}
+        onOpenChange={actions.setIsLoginRequiredOpen}
       />
       
       {state.isUserMenuOpen && (
