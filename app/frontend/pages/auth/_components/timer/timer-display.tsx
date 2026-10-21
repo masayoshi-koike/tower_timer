@@ -16,14 +16,12 @@ function TimerDisplay({
 
   return (
     <div className="mb-4 pb-4 text-center sm:mb-8 sm:pb-8 landscape:max-[1024px]:mb-1 landscape:max-[1024px]:pb-1">
-      {isBreak && (
-        <p className="mb-2 text-xl font-bold text-blue-500 landscape:max-[1024px]:mb-0 landscape:max-[1024px]:text-sm">
-          Break Time
-        </p>
-      )}
-      <div className={`font-custom text-5xl tracking-widest antialiased min-[400px]:text-6xl sm:text-[80px] landscape:max-[1024px]:text-4xl ${isBreak ? 'text-blue-500' : 'text-gray-900'}`}>
+      <p className="text-xs font-medium tracking-[0.3em] text-neutral-500 uppercase landscape:max-[1024px]:text-[10px]">
+        {isBreak ? "Break" : "Focus"}
+      </p>
+      <p className="mt-2 text-6xl leading-none font-bold tracking-tight text-neutral-900 tabular-nums min-[400px]:text-7xl sm:mt-3 sm:text-8xl landscape:max-[1024px]:mt-1 landscape:max-[1024px]:text-5xl">
         {formattedTime}
-      </div>
+      </p>
     </div>
   );
 }

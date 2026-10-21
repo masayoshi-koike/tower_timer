@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     match :start, :stop, :reset, :complete, via: :post
   end
 
+  resource :study_calendar, only: :show
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

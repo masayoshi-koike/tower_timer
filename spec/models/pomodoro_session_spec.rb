@@ -44,4 +44,23 @@ RSpec.describe PomodoroSession, type: :model do
       expect(pomodoro_session).to be_invalid
     end
   end
+
+  describe ".minutes_by_date" do
+    let(:pomodoro_set) { create(:pomodoro_set) }
+
+    it "日本時間の日付ごとにduration_minutesを合計すること" do
+      create(:pomodoro_session, pomodoro_set: pomodoro_set, completed_at: Time.zone.local(2026, 3, 11, 0, 30))
+      create(:pomodoro_session, pomodoro_set: pomodoro_set, completed_at: Time.zone.local(2026, 3, 11, 23, 59))
+      create(:pomodoro_session, pomodoro_set: pomodoro_set, completed_at: Time.zone.local(2026, 3, 12, 0, 0))
+
+      expect(PomodoroSession.minutes_by_date).to eq(
+        Date.new(2026, 3, 11) => 50,
+        Date.new(2026, 3, 12) => 25
+      )
+    end
+
+    it "セッションがなければ空のハッシュを返すこと" do
+      expect(PomodoroSession.minutes_by_date).to eq({})
+    end
+  end
 end

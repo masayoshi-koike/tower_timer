@@ -2,6 +2,8 @@ class PomodoroSet < ApplicationRecord
   belongs_to :user, touch: true
   has_many :pomodoro_sessions, dependent: :destroy
 
+  WORK_DURATION = 25 * 60
+
   enum :status, { in_progress: 0, completed: 1, canceled: 2, paused: 3, break_time: 4, break_paused: 5 }
 
   def start!
@@ -26,7 +28,7 @@ class PomodoroSet < ApplicationRecord
     return false unless in_progress?
 
     transaction do
-      pomodoro_sessions.create!(completed_at: Time.current)
+      pomodoro_sessions.create!(completed_at: finished_at)
       update!(
         status: :break_paused,
         elapsed_time: 0,
@@ -38,4 +40,13 @@ class PomodoroSet < ApplicationRecord
   def cancel!
     update!(status: :canceled)
   end
+
+  private
+
+    # 画面を閉じていた等で完了処理が遅れても、実際に満了した時刻で記録する(日別集計がずれないように)
+    def finished_at
+      return Time.current unless resumed_at
+
+      [resumed_at + (WORK_DURATION - elapsed_time).seconds, Time.current].min
+    end
 end

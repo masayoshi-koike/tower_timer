@@ -110,6 +110,24 @@ RSpec.describe PomodoroSet, type: :model do
         expect(session.duration_minutes).to eq(25)
         expect(session.completed_at).to be_within(1.second).of(now)
       end
+
+      it "満了後に完了処理が遅れても、満了した時刻がcompleted_atに保存されること" do
+        resumed_at = Time.current.change(usec: 0)
+        pomodoro_set = create(:pomodoro_set, :in_progress, elapsed_time: 600, resumed_at: resumed_at)
+
+        travel_to(resumed_at + 8.hours) { pomodoro_set.complete_session! }
+
+        expect(pomodoro_set.pomodoro_sessions.last.completed_at).to be_within(1.second).of(resumed_at + 15.minutes)
+      end
+
+      it "満了前に完了処理が呼ばれても、completed_atが現在時刻を超えないこと" do
+        resumed_at = Time.current.change(usec: 0)
+        pomodoro_set = create(:pomodoro_set, :in_progress, resumed_at: resumed_at)
+
+        travel_to(resumed_at + 10.seconds) { pomodoro_set.complete_session! }
+
+        expect(pomodoro_set.pomodoro_sessions.last.completed_at).to be_within(1.second).of(resumed_at + 10.seconds)
+      end
     end
 
     context "進行中でない場合" do
